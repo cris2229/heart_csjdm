@@ -1,0 +1,18 @@
+.loginleft[b-umr55tukzy] {
+    background-image: url('images/cityhall.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.loginright[b-umr55tukzy] {
+    /*background-color :aqua;*/
+}
+.loginmain[b-umr55tukzy] {
+    /*background-color: aqua;*/
+}
+.logoheart[b-umr55tukzy] {
+    background-image: url('images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80px;
+    width: 200px;
+}

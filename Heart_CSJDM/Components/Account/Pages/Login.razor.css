@@ -1,0 +1,18 @@
+﻿.loginleft {
+    background-image: url('images/cityhall.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.loginright {
+    /*background-color :aqua;*/
+}
+.loginmain {
+    /*background-color: aqua;*/
+}
+.logoheart {
+    background-image: url('images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80px;
+    width: 200px;
+}

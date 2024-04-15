@@ -1,0 +1,173 @@
+﻿@page "/Admin/Clients"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inject ProtectedSessionStorage ProtectedSessionStore
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@using Microsoft.AspNetCore
+@using QRCoder;
+@using System.Drawing.Imaging;
+@inject IJSRuntime JSRuntime
+@using Blazorise
+<Table Class="table-striped">
+    <TableHeader>
+        <TableRow>
+            <TableHeaderCell>CLientID</TableHeaderCell>
+            <TableHeaderCell>Last Name</TableHeaderCell>
+            <TableHeaderCell>First Name</TableHeaderCell>
+            <TableHeaderCell>Middle Name</TableHeaderCell>
+            <TableHeaderCell>Extension Name</TableHeaderCell>
+            <TableHeaderCell>Contact No</TableHeaderCell>
+            <TableHeaderCell>Birth Date</TableHeaderCell>
+            <TableHeaderCell>Age</TableHeaderCell>
+            <TableHeaderCell>Marital Status</TableHeaderCell>
+            <TableHeaderCell>Gender</TableHeaderCell>
+            <TableHeaderCell>Address</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell>Details</TableHeaderCell>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        @foreach (var serv in clients)
+        {
+            <TableRow>
+                <TableRowCell>@serv.ClientID</TableRowCell>
+                <TableRowCell>@serv.LastName</TableRowCell>
+                <TableRowCell>@serv.FirstName</TableRowCell>
+                <TableRowCell>@serv.MiddleName</TableRowCell>
+                <TableRowCell>@serv.ExtensionName</TableRowCell>
+                <TableRowCell>@serv.Contact_No</TableRowCell>
+                <TableRowCell>@serv.Birthdate</TableRowCell>
+                <TableRowCell>@serv.Age</TableRowCell>
+                <TableRowCell>@serv.Marital_Status</TableRowCell>
+                <TableRowCell>@serv.Gender</TableRowCell>
+                <TableRowCell>@(serv.Address_block + " " + serv.Address_HouseNo + " " + serv.Address_Subdivision + " " + serv.Address_Building + " " + serv.Address_Barangay + " " + serv.Address_District + " " + serv.Address_Municipality)</TableRowCell>
+                <TableRowCell>@serv.Status</TableRowCell>
+                <TableRowCell><button class="rounded-pill" style="background-color:orange;width:fit-content;" @onclick="@( ()=> ShowModal(@serv.ClientID) )">View/Modify</button></TableRowCell>
+            </TableRow>
+        }
+    </TableBody>
+</Table>
+<Modal @bind-Visible="@modalVisible">
+    <ModalContent Centered Size="ModalSize.ExtraLarge">
+        <ModalHeader>
+            <ModalTitle>Client Information</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <EditForm Model="@ClientInfo" OnValidSubmit="@SubmitForm">
+            <Fields >
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>Last Name</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.LastName" />
+                </Field>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>First Name</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.FirstName" />
+                </Field>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>Middle Name</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.MiddleName" />
+                </Field>
+                <Field ColumnSize="ColumnSize.Is1.OnDesktop">
+                    <FieldLabel>Extn Name</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.ExtensionName" />
+                </Field>
+            </Fields>
+            <Fields>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>Contact No</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Contact_No" />
+                </Field>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>Birth Date</FieldLabel>
+                    <DateEdit @bind-Date="@ClientInfo.Birthdate"/>
+                </Field>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>Gender</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Gender" onchange="" />
+                </Field>
+            </Fields>
+            <Fields>
+                <Field ColumnSize="ColumnSize.Is1.OnDesktop">
+                    <FieldLabel>Age</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Age" />
+                </Field>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                    <FieldLabel>Martal Status</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Marital_Status" />
+                </Field>
+                <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>Status:</FieldLabel> <FieldLabel>@ClientInfo.Status</FieldLabel>
+                        <Select TValue="string" @bind-SelectedValue="@ClientInfo.Statusint" >
+                            <SelectItem Value="1">Active</SelectItem>
+                            <SelectItem Value="0">In-Active</SelectItem>
+                    </Select>
+                </Field>
+            </Fields>
+                <Fields>
+                    <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>Block</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_block" />
+                    </Field>
+                    <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>Lot</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_lot" />
+                    </Field>
+                    <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>HouseNo</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_HouseNo" />
+                    </Field>
+                </Fields>
+                <Fields>
+                    <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>SubDivision</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_Subdivision" />
+                    </Field>
+                    <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>Building No</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_Building" />
+                    </Field>
+                    <Field ColumnSize="ColumnSize.Is3.OnDesktop">
+                        <FieldLabel>Baranggay</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_Barangay" />
+                    </Field>
+                </Fields>
+                <Fields>
+                    <Field ColumnSize="ColumnSize.Is2.OnDesktop">
+                        <FieldLabel>District</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_District" />
+                    </Field>
+                    <Field ColumnSize="ColumnSize.Is5.OnDesktop">
+                        <FieldLabel>Miunicipality</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.Address_Municipality" />
+                    </Field>
+                </Fields>
+                <Fields>
+                    <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                        <FieldLabel>QREncriptedData</FieldLabel>
+                        <TextEdit @bind-Text="@ClientInfo.QREncriptedData" />
+                    </Field>
+                </Fields>
+                <Button Type="ButtonType.Submit" Color="Color.Primary">Update</Button>
+            </EditForm>
+            <div id="qrcode"></div>
+        </ModalBody>
+    </ModalContent>
+</Modal>
+
+
+@code {
+
+    private FormData formData = new FormData();
+
+    private class FormData
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+
+    
+    
+
+}

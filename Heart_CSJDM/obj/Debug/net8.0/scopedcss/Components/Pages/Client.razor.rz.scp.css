@@ -1,0 +1,28 @@
+.content-home[b-4isla778ss] {
+    background-image: url('images/homebg.jpg');
+    background-size:cover;
+    background-color:aqua;
+    height:600px;
+}
+.logoheart[b-4isla778ss] {
+    background-image: url('images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80px;
+    width: 200px;
+}
+.homedetails[b-4isla778ss] {
+    color:white;
+}
+.mainrow[b-4isla778ss] {
+    background: rgba(108, 222, 245, 0.3)
+}
+.tab1[b-4isla778ss] {
+}
+.clientinfo[b-4isla778ss] {
+    height: 330px;
+    overflow:scroll;
+}
+.clientdetails[b-4isla778ss] {
+    border: 2px solid #808080;
+}

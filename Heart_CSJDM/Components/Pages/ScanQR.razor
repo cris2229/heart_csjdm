@@ -1,0 +1,39 @@
+﻿@page "/ScanQR"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+ @inject IJSRuntime JSRuntime
+ @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedSessionStorage ProtectedSessionStore
+<PageTitle>Home</PageTitle>
+
+<div class="container-fluid content-home">
+    <div class="row h-100 mainrow">
+        <div class="col-md h-100">
+        <p>
+                
+                <span style="color:deeppink;">Scan QR Code</span> <br />
+                <span style="color:orange;align-items:center">STEPS FOR VERIFICATION</span> <br />
+
+                1.Click on the "Scan Me" Button.<br />
+                2.A message will prompt to ask your permission to <br /> allow accessto your device's camera.
+                3.Once the capture screen appears, point it steadily for <br />
+                2-3 seconds towards the QR Code you want to scan. <br />
+                4. If the verification is successful, it will automatically <br />
+                redirect on the client's profile.
+        </p>
+
+         </div>
+        
+        <div class="col-md h-100">
+      <div style="width: 500px;z-index:100" id="reader"></div>
+            @* <input type="text" id="decoded" @onchange="reloadData" step="0.1" /> *@
+            @* <input type="text" @ref="inputElement" id="decoded" name="decoded" @bind="InitializedText" /> *@
+            @* <button id="btnredirect" class="btn-primary rounded-pill" hidden @onclick="test">QR Success Click Here to redirect</button> *@
+            </div>
+        </div>
+    </div>
+@code {
+    private string InitializedText { get; set; }
+    private string inputValue;
+}

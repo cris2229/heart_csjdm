@@ -1,0 +1,19 @@
+.content-home[b-jl2cskldsn] {
+    background-image: url('images/homebg.jpg');
+    background-size:cover;
+    background-color:aqua;
+    height:600px;
+}
+.logoheart[b-jl2cskldsn] {
+    background-image: url('images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80px;
+    width: 200px;
+}
+.homedetails[b-jl2cskldsn] {
+    color:white;
+}
+.mainrow[b-jl2cskldsn] {
+    background: rgba(108, 222, 245, 0.2)
+}

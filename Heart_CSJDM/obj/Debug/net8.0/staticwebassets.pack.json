@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Heart_CSJDM.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Heart_CSJDM.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\images\\Logo.png",
+      "PackagePath": "staticwebassets\\images\\Logo.png"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\images\\San-Jose-del-Monte-Official-Seal.png",
+      "PackagePath": "staticwebassets\\images\\San-Jose-del-Monte-Official-Seal.png"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\images\\aboutbd.png",
+      "PackagePath": "staticwebassets\\images\\aboutbd.png"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\images\\cityhall.png",
+      "PackagePath": "staticwebassets\\images\\cityhall.png"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\images\\hftp.png",
+      "PackagePath": "staticwebassets\\images\\hftp.png"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\images\\homebg.jpg",
+      "PackagePath": "staticwebassets\\images\\homebg.jpg"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\js\\getsession.js",
+      "PackagePath": "staticwebassets\\js\\getsession.js"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\js\\html5-qrcode.min.js",
+      "PackagePath": "staticwebassets\\js\\html5-qrcode.min.js"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\js\\qrScanner.js",
+      "PackagePath": "staticwebassets\\js\\qrScanner.js"
+    },
+    {
+      "Id": "C:\\repos\\Heart_CSJDM\\Heart_CSJDM\\wwwroot\\js\\qrcode.js",
+      "PackagePath": "staticwebassets\\js\\qrcode.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Heart_CSJDM.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Heart_CSJDM.props",
+      "PackagePath": "build\\Heart_CSJDM.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Heart_CSJDM.props",
+      "PackagePath": "buildMultiTargeting\\Heart_CSJDM.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Heart_CSJDM.props",
+      "PackagePath": "buildTransitive\\Heart_CSJDM.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

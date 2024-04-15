@@ -1,0 +1,12 @@
+.table-striped tbody tr:nth-of-type(odd)[b-wst9tjyf5l] {
+    background-color: #f8f9fa; /* Lighter shade */
+}
+TableHeader[b-wst9tjyf5l] {
+font-size:14px;
+}
+TableBody[b-wst9tjyf5l] {
+    font-size: 12px;
+}
+.table-striped tbody tr:nth-of-type(even)[b-wst9tjyf5l] {
+    background-color: #e9ecef; /* Darker shade */
+}

@@ -1,0 +1,19 @@
+﻿.content-home {
+    background-image: url('images/homebg.jpg');
+    background-size:cover;
+    background-color:aqua;
+    height:600px;
+}
+.logoheart {
+    background-image: url('images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80px;
+    width: 200px;
+}
+.homedetails {
+    color:white;
+}
+.mainrow {
+    background: rgba(108, 222, 245, 0.2)
+}

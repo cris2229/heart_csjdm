@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Web
+<div class="page">
+    @* <div class="sidebar">
+        <NavMenu />
+    </div> *@
+
+    <main>
+        <div class="row top-row px-4">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="sjdmlogo"/>
+                    <div class="hotrlogo"/>
+                 </div>
+            </div>
+            <div class="col-sm top-details">
+                <p>
+                    <u>Republic of the Philippines</u>
+                    <br />
+                    City of San Jose Del Monte<br />
+                    Arya San jose
+                </p>
+            </div>
+            <div class="col-md top-menu">
+                <TopMenu />
+            </div>
+
+        </div>
+
+        <article>
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

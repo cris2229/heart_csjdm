@@ -1,0 +1,12 @@
+﻿.content-home {
+    background-color:white;
+    height: 600px;
+}
+.rDetails {
+    background-image: url('images/aboutbd.png');
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+.lDetails {
+    color: #ea2763;
+}

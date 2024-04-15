@@ -1,0 +1,252 @@
+﻿@page "/Client/{qrcode}"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inject ProtectedSessionStorage ProtectedSessionStore;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@using Blazorise
+@inject IJSRuntime JSRuntime
+<PageTitle>Client</PageTitle>
+
+<div class="panel">
+    <div class="row clientinfo">
+        <div class="col-sm-2 "></div>
+        <div class="col-md-8 ">
+            <h2>Profile</h2>
+            <div class="row clientdetails">
+                <div class="col-sm-2 "><img width="100px" height="100px" /></div>
+                <div class="col-sm-8">
+                    <center>
+                        <h2> @ClientInfo.LastName , @ClientInfo.FirstName, @ClientInfo.MiddleName</h2> <br />
+                        ID No : @ClientInfo.ID_No <br />
+                        Contact No : @ClientInfo.Contact_No <br />
+                        Birth Date : @ClientInfo.Birthdate <br />
+                        Age : @ClientInfo.Age <br />
+                        Gender : @ClientInfo.Gender <br />
+                        Marital Status : @ClientInfo.Marital_Status <br />
+                        Address : @ClientInfo.Address <br />
+                        sector :  <br />
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="tabs">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+            <button @onclick="(() => SelectTab(1))" class="@GetTabClass(1)">View Appointment</button>
+            <button @onclick="(() => SelectTab(2))" class="@GetTabClass(2)">Transaction History</button>
+            <button @onclick="(() => SelectTab(3))" class="@GetTabClass(3)">Update Logs</button>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                @if (selectedTab == 1)
+                {
+                    <div class="col-lg tab1">
+                        <div>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHeaderCell>#AppointmentID</TableHeaderCell>
+                                        <TableHeaderCell>Date Of Appointment</TableHeaderCell>
+                                        <TableHeaderCell>Services</TableHeaderCell>
+                                        <TableHeaderCell>Assigned To</TableHeaderCell>
+                                        <TableHeaderCell>Status</TableHeaderCell>
+                                        <TableHeaderCell>Remarks</TableHeaderCell>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    @foreach (var serv in ListOfAppointments)
+                                    {
+                                        <TableRow>
+                                            <TableRowCell>@serv.AppointmentID</TableRowCell>
+                                            <TableRowCell>@serv.DateofAppointment</TableRowCell>
+                                            <TableRowCell>@serv.Services</TableRowCell>
+                                            <TableRowCell>@serv.AssignedTo</TableRowCell>
+                                            <TableRowCell>@serv.Status</TableRowCell>
+                                            <TableRowCell>@serv.Remarks</TableRowCell>
+                                        </TableRow>
+                                    }
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div class="row" >
+                            <button class="rounded-pill" style="background-color:orange;width:fit-content;" @onclick="@ShowModal">Schedule Appointments</button>
+                        </div>
+                        <div class="row" style="border:2px" >
+                            Appointment for Annual Physical Examination (Package)
+                        </div>
+                    </div>
+                }
+                else if (selectedTab == 2)
+                {
+                    <div class="col-lg">Tab 2 content</div>
+                }
+                else if (selectedTab == 3)
+                {
+                    <div class="col-lg">Tab 3 content</div>
+                }
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+</div>
+@* <Button Color="Color.Primary" Clicked="@ShowModal">Show Modal</Button> *@
+<Modal @bind-Visible="@modalVisible">
+    <ModalContent Centered Size="ModalSize.ExtraLarge">
+        <ModalHeader>
+            <ModalTitle>Appointment Information</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <div class="row clientinfo">
+                <div class="col-md-10 ">
+                    <div class="row clientdetails">
+                        <div class="col-sm-2 "><img width="100px" height="100px" /></div>
+                        <div class="col-sm-8">
+                            <center>
+                                <h2> @ClientInfo.LastName , @ClientInfo.FirstName, @ClientInfo.MiddleName</h2> <br />
+                                ID No : @ClientInfo.ID_No <br />
+                                Contact No : @ClientInfo.Contact_No <br />
+                                Birth Date : @ClientInfo.Birthdate <br />
+                                Age : @ClientInfo.Age <br />
+                                Gender : @ClientInfo.Gender <br />
+                                Marital Status : @ClientInfo.Marital_Status <br />
+                                Address : @ClientInfo.Address <br />
+                                sector :  <br />
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clientinfo">
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <Span> Date of Appointment </Span>
+                        <DateEdit @bind-Date="selectedDate" onchange="@DateChanged" />
+                    </div>
+                    <div class="col-md-5 ">
+                        <Span> Type of Services </Span><br />
+                        <Dropdown @bind-Value="SelectedItem">
+                            <Button Color="Color.Success" >@SelectedItem</Button>
+                            <DropdownToggle Color="Color.Primary" Split />
+                            <DropdownMenu>
+                                @foreach (var item in Items)
+                                {
+                                    <DropdownItem Clicked="@( () => SelectItem(item) )">@item</DropdownItem>
+                                   @*  <DropdownItem Clicked="getdropdownitem" Value="@item">@item</DropdownItem> *@
+                                }
+                                <DropdownDivider />
+                            </DropdownMenu>
+                        </Dropdown>
+                    </div>
+                </div>
+                <div class="col-md-10 ">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHeaderCell>#</TableHeaderCell>
+                                <TableHeaderCell>Services</TableHeaderCell>
+                                <TableHeaderCell>Assigned To</TableHeaderCell>
+                                <TableHeaderCell>Status</TableHeaderCell>
+                                <TableHeaderCell>Remark</TableHeaderCell>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            @foreach (var serv in appointments)
+                            {
+                                <TableRow>
+                                    <TableRowHeader>@serv.TransactionID</TableRowHeader>
+                                    <TableRowCell><Check TValue="bool"  CheckedChanged="@( () => IsCheckServices(@serv.Services) )">@serv.Services</Check></TableRowCell>
+                                    <TableRowCell>
+                                        <Dropdown>
+                                            <Button Color="Color.Success" value="Test">@serv.AssignedTo</Button>
+                                            <DropdownToggle Color="Color.Primary" Split />  
+                                            <DropdownMenu>
+                                                @foreach (var item in ItemsAssignedto)
+                                                {
+                                                    <DropdownItem Clicked="@( () => SelectItemAssignedTo(item,@serv.Services) )">@item</DropdownItem>
+                                                    @*  <DropdownItem Clicked="getdropdownitem" Value="@item">@item</DropdownItem> *@
+                                                }
+                                                <DropdownDivider />
+                                            </DropdownMenu>
+                                        </Dropdown>
+                                    </TableRowCell>
+                                    <TableRowCell>
+                                        <Dropdown>
+                                            <Button Color="Color.Success">Active</Button>
+                                            <DropdownToggle Color="Color.Primary" Split />
+                                            <DropdownMenu>
+                                                <DropdownItem>Active</DropdownItem>
+                                                <DropdownDivider />
+                                                <DropdownItem>InActive</DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
+                                    </TableRowCell>
+                                    <TableRowCell>Details</TableRowCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Close</Button>
+            <Button Color="Color.Primary" Clicked="@Save_Appointment">Save Changes</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    private DateTime? selectedDate { get; set; } = DateTime.Today;
+    private int selectedTab = 1;
+    private string selectedOption { get; set; }
+    private string Fullname;
+    private string idno;
+    private string contactno;
+    private string birthdate;
+    private string age;
+    private string gender;
+    private string maritalstatus;
+    private string address;
+    private string sector;
+    DatePicker<DateTime?> datePicker;
+
+    DateTime? DateofAppoint = DateTime.Now;
+    private string GetTabClass(int tab)
+    {
+        return tab == selectedTab ? "active" : "";
+    }
+
+    
+
+    private void SelectTab(int tab)
+    {
+        selectedTab = tab;
+    }
+    private bool showModal = false;
+
+    private bool modalVisible;
+
+    private Task ShowModal()
+    {
+        modalVisible = true;
+
+        return Task.CompletedTask;
+    }
+
+    private Task HideModal()
+    {
+        modalVisible = false;
+
+        return Task.CompletedTask;
+    }
+}

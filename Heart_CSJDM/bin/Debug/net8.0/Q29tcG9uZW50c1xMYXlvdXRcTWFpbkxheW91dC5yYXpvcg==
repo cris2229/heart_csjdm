@@ -1,0 +1,47 @@
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Web
+@inject NavigationManager Navigation
+<div class="page">
+    @if (!Navigation.Uri.Contains("Account/Login"))
+        {
+            <div class="sidebar">
+                    <NavMenu />
+            </div>
+        }
+    <main>
+        @if (Navigation.Uri.Contains("Account/Login"))
+            {
+        <div class="row top-row px-4">
+            
+            <div class="col-sm">
+                <div class="row">
+                    <div class="sjdmlogo"/>
+                    <div class="hotrlogo"/>
+                        <p>
+                            <u>Republic of the Philippines</u>
+                            <br />
+                            City of San Jose Del Monte<br />
+                            Arya San jose
+                        </p>
+                 </div>
+            </div>
+           @*  <div class="col-sm top-details">
+                
+            </div>
+             *@
+            @* <div class="col-md top-menu">
+                <TopMenu />
+            </div> *@
+        </div>
+        }
+        <article>
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

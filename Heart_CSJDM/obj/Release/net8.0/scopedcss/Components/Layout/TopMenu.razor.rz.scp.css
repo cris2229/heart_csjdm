@@ -1,0 +1,21 @@
+.nav-horizontal[b-69uzgdlgoe] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav-item[b-69uzgdlgoe] {
+    margin-right: 10px; /* Adjust spacing between navigation items */
+}
+
+.nav-link[b-69uzgdlgoe] {
+    color: #000; /* Adjust text color */
+    text-decoration: none; /* Remove underline from links */
+    display: inline-flex;
+    align-items: center;
+}
+
+    /* Optional: Adjust styling for navigation icons */
+    .nav-link .bi[b-69uzgdlgoe] {
+        margin-right: 5px; /* Adjust spacing between icon and text */
+    }
