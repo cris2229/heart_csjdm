@@ -4,13 +4,13 @@ window.initializePage = function () {
         // Handle on success condition with the decoded text or result.
         console.log(`Scan result: ${decodedText}`, decodedResult);
         // ...
-        //var decodedText1 = document.getElementById("decoded");
+       /* var decodedText1 = document.getElementById("txtdecode");*/
         //decodedText1.value = decodedText;
         /*DotNet.invokeMethodAsync('Heart_CSJDM', 'refresh');*/
         //var btnredirect = document.getElementById("btnredirect");
         //btnredirect.hidden = false;
-        sessionStorage.setItem('decodetext', 'Test');
-        location.href = "/Client/" + decodedText;
+        sessionStorage.setItem('decodetext', decodedText);
+        location.href = "/Client/" ;
         //DotNet.invokeMethodAsync('Heart_CSJDM', 'Heart_CSJDM.Components.Pages.ScanQR.MyMethod')
         //    .then(data => {
         //        console.log('Razor method executed successfully');
