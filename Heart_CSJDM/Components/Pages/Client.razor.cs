@@ -58,6 +58,7 @@ namespace Heart_CSJDM.Components.Pages
                 var QRdecoded = await ProtectedSessionStore.GetAsync<string>("QRdecoded");
                 await JSRuntime.InvokeVoidAsync("getSession");
                 InitilizeClientDetails();
+                ListOfAppointments = dataContext.sp_getAppointment(ClientInfo.ClientID);
                 StateHasChanged();
             }
         }

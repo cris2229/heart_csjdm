@@ -44,5 +44,7 @@
         public string Statusint { get; set; }
 
         public string QREncriptedData { get; set; }
+
+        public string ClientName { get; set; }
     }
 }

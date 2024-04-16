@@ -1,0 +1,61 @@
+﻿@page "/Appointment"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inject ProtectedSessionStorage ProtectedSessionStore;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@using Blazorise
+@inject IJSRuntime JSRuntime
+<Div Class="row">
+    <Div Class="col-4">
+        <DateEdit @bind-Date="selectedDate" onchange="@DateChanged" Size="Size.Medium" />
+    </Div>
+    <Div Class="col-4">
+        <Button Class="btn-primary">Add Appointments</Button>
+    </Div>
+</Div>
+<Table>
+    <TableHeader>
+        <TableRow>
+            <TableHeaderCell>#AppointmentID</TableHeaderCell>
+            <TableHeaderCell>Date Of Appointment</TableHeaderCell>
+            <TableHeaderCell>Services</TableHeaderCell>
+            <TableHeaderCell>Assigned To</TableHeaderCell>
+            <TableHeaderCell>Client</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell>Remarks</TableHeaderCell>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        @foreach (var serv in ListOfAppointments)
+        {
+            <TableRow>
+                <TableRowCell>@serv.AppointmentID</TableRowCell>
+                <TableRowCell>@serv.DateofAppointment</TableRowCell>
+                <TableRowCell>@serv.Services</TableRowCell>
+                <TableRowCell>@serv.AssignedTo</TableRowCell>
+                <TableRowCell>@serv.ClientName</TableRowCell>
+                <TableRowCell>@serv.Status</TableRowCell>
+                <TableRowCell>@serv.Remarks</TableRowCell>
+            </TableRow>
+        }
+    </TableBody>
+</Table>
+<InputText @bind-Value="@inputValue" @oninput="OnInput" />
+
+@if (showSuggestions)
+{
+    <ul>
+        @foreach (var suggestion in suggestedclients)
+        {
+            <li>@suggestion.ClientName </li>
+            <Button>Add</Button>
+        }
+    </ul>
+}
+
+@code {
+    string inputValue = "";
+    bool showSuggestions = false;
+   
+}

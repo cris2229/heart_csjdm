@@ -110,6 +110,7 @@ namespace Heart_CSJDM.DataAccessLayer
                         Address_Municipality = rdr.GetString("Address_Municipality"),
                         Status = rdr.GetString("STATUS"),
                         QREncriptedData = rdr.GetString("QREncriptedData"),
+                        ClientName = rdr.GetString("ClientName"),
                     };
                     clientsList.Add(client);
                 }
@@ -272,6 +273,44 @@ namespace Heart_CSJDM.DataAccessLayer
                         Status = rdr.GetString("Status"),
                         Remarks = rdr.GetString("Remarks"),
                         TransactionID = rdr.GetString("TransactionID")
+                    };
+                    Appoint.Add(appoints);
+                }
+                return Appoint;
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Appoint;
+        }
+        public List<Appointment> sp_getAppointmentbyDate(DateTime? date)
+        {
+            List<Appointment> Appoint = new List<Appointment>();
+            try
+            {
+
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getAppointmentbyDate", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@pDate", date);
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Appointment appoints = new Appointment
+                    {
+                        //ClientID = rdr.GetInt32("ClientID"),
+                        DateofAppointment = rdr.GetDateTime("DateofAppointment"),
+                        Services = rdr.GetString("Services"),
+                        AssignedTo = rdr.GetString("AssignedTo"),
+                        Status = rdr.GetString("Status"),
+                        Remarks = rdr.GetString("Remarks"),
+                        TransactionID = rdr.GetString("TransactionID"),
+                        ClientName = rdr.GetString("ClientName")
                     };
                     Appoint.Add(appoints);
                 }

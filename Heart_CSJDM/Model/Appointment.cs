@@ -23,5 +23,6 @@
         public string TransactionID { get; set; }
         public int ClientID { get; set; }
         public bool IsCheck { get; set; }
+        public string ClientName { get; set; }
     }
 }

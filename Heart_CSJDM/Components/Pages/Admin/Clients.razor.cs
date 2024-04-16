@@ -40,7 +40,7 @@ namespace Heart_CSJDM.Components.Pages.Admin
         {
             modalVisible = true;
             InitilizeClientDetails(clientid);
-            GenerateQRCodes();
+            //GenerateQRCodes();
             return Task.CompletedTask;
         }
 
