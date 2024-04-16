@@ -15,8 +15,7 @@ namespace Heart_CSJDM.Components.Pages
 
         
         
-        [Parameter]
-        public string? qrcode { get; set; }
+        public static string? qrcode { get; set; }
         public string SelectedItem { get; set; }
         public string IsCheckValue { get; set; }
         public string SelectedAssignedto { get; set; }
@@ -27,6 +26,7 @@ namespace Heart_CSJDM.Components.Pages
         public List<Appointment> appointments { get; set; }
         public List<Appointment> ListOfAppointments { get; set; }
         private DataContext dataContext { get; set; }
+        public decoded decode { get; set; }
         protected override async Task OnInitializedAsync()
         {
             //var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -57,6 +57,8 @@ namespace Heart_CSJDM.Components.Pages
             {
                 var QRdecoded = await ProtectedSessionStore.GetAsync<string>("QRdecoded");
                 await JSRuntime.InvokeVoidAsync("getSession");
+                InitilizeClientDetails();
+                StateHasChanged();
             }
         }
         public void SelectItem(string item)
@@ -126,6 +128,11 @@ namespace Heart_CSJDM.Components.Pages
             var date = eventArgs.Value;
             selectedDate = Convert.ToDateTime(date);
             StateHasChanged();
+        }
+        [JSInvokable]
+        public static void getSession(string value)
+        { 
+            qrcode = value;
         }
     }
 }
