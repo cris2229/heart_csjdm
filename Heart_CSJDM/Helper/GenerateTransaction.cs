@@ -2,13 +2,19 @@
 {
     public class GenerateTransaction
     {
-        public string getTrancsactionID(int clientID)
-        { 
-            string TransactionID = string.Empty;
+        public string getTrancsactionID()
+        {
+                // Get the current timestamp
+                long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            TransactionID=   DateOnly.FromDateTime(DateTime.Now).ToString("yyy-MM-dd") + "-" + clientID.ToString()  ;
+                // Generate a random number
+                Random random = new Random();
+                int randomNumber = random.Next(100000, 999999); // Adjust the range as needed
 
-            return TransactionID;
-        }
+                // Combine timestamp and random number to create the transaction ID
+                string transactionId = $"{timestamp}-{randomNumber}";
+
+                return transactionId;
+            }
     }
 }

@@ -15,9 +15,11 @@
     <None Remove="Components\Account\Pages\Login.razor.css" />
     <None Remove="Components\Pages\About.razor.css" />
     <None Remove="Components\Pages\Admin\Clients.razor.css" />
+    <None Remove="Components\Pages\Appointments.razor.css" />
     <None Remove="Components\Pages\Client.razor.css" />
     <None Remove="Components\Pages\Home.razor.css" />
     <None Remove="Components\Pages\ScanQR.razor.css" />
+    <None Remove="Components\Pages\Transactions.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +28,9 @@
     </Content>
     <Content Include="Components\Pages\About.razor.css" />
     <Content Include="Components\Pages\Admin\Clients.razor.css" />
+    <Content Include="Components\Pages\Transactions.razor.css" />
     <Content Include="Components\Pages\Client.razor.css" />
+    <Content Include="Components\Pages\Appointments.razor.css" />
     <Content Include="Components\Pages\ScanQR.razor.css" />
     <Content Include="Components\Pages\Home.razor.css" />
   </ItemGroup>

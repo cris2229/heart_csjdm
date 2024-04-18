@@ -1,0 +1,87 @@
+﻿@page "/Transactions"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inject ProtectedSessionStorage ProtectedSessionStore;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@using Blazorise
+@inject IJSRuntime JSRuntime
+<Div Class="row">
+    <Div Class="col-4">
+        <DateEdit @bind-Date="selectedDate" onchange="@DateChanged" Size="Size.Medium" />
+    </Div>
+    @* <Div Class="col-4">
+        <Button Class="btn-primary" @onclick="@ShowModal">Add Appointments</Button>
+    </Div> *@
+</Div>
+<Table Class="table-striped">
+    <TableHeader>
+        <TableRow>
+            <TableHeaderCell>#</TableHeaderCell>
+            <TableHeaderCell>Transaction No</TableHeaderCell>
+            <TableHeaderCell>Transaction Date</TableHeaderCell>
+            <TableHeaderCell>User</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        @foreach (var serv in ListOfTransactions)
+        {
+            <TableRow Clicked="@( () => ShowModal(serv.TransactionNo) )">
+                <TableRowCell>@serv.TransactionID</TableRowCell>
+                <TableRowCell>@serv.TransactionNo</TableRowCell>
+                <TableRowCell>@serv.TransactionDate</TableRowCell>
+                <TableRowCell>@serv.UserID</TableRowCell>
+                <TableRowCell></TableRowCell>
+            </TableRow>
+        }
+    </TableBody>
+</Table>
+<Modal @bind-Visible="@modalVisible">
+    <ModalContent Centered Size="ModalSize.ExtraLarge">
+        <ModalHeader>
+            <ModalTitle>Appointment Information</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Table Class="table-striped">
+                <TableHeader>
+                    <TableRow>
+                        <TableHeaderCell>#AppointmentID</TableHeaderCell>
+                        <TableHeaderCell>Date Of Appointment</TableHeaderCell>
+                        <TableHeaderCell>Services</TableHeaderCell>
+                        <TableHeaderCell>Assigned To</TableHeaderCell>
+                        <TableHeaderCell>Client</TableHeaderCell>
+                        <TableHeaderCell>Status</TableHeaderCell>
+                        <TableHeaderCell>Remarks</TableHeaderCell>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    @foreach (var serv in _appointments)
+                    {
+                        <TableRow>
+                            <TableRowCell>@serv.AppointmentID</TableRowCell>
+                            <TableRowCell>@serv.DateofAppointment</TableRowCell>
+                            <TableRowCell>@serv.Services</TableRowCell>
+                            <TableRowCell>@serv.AssignedTo</TableRowCell>
+                            <TableRowCell>@serv.ClientName</TableRowCell>
+                            <TableRowCell>@serv.Status</TableRowCell>
+                            <TableRowCell>@serv.Remarks</TableRowCell>
+                        </TableRow>
+                    }
+                </TableBody>
+            </Table>
+        </ModalBody>
+        <ModalFooter>
+          
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+
+@code {
+    string inputValue = "";
+    bool showSuggestions = false;
+
+}

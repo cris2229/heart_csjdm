@@ -46,5 +46,8 @@
         public string QREncriptedData { get; set; }
 
         public string ClientName { get; set; }
+        public int SectorID { get; set; }
+        public int OrganizationID { get; set; }
+
     }
 }

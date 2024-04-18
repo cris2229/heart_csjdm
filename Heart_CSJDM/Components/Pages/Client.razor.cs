@@ -26,6 +26,7 @@ namespace Heart_CSJDM.Components.Pages
         public List<Appointment> appointments { get; set; }
         public List<Appointment> ListOfAppointments { get; set; }
         private DataContext dataContext { get; set; }
+        public List<TypeOfServices> _typeofservices { get; set; }
         public decoded decode { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -42,8 +43,8 @@ namespace Heart_CSJDM.Components.Pages
             appointments = Appoint;
             string q = qrcode;
             InitilizeClientDetails();
-            
-            Items = dataContext.sp_gettypeofservices();
+
+            _typeofservices = dataContext.sp_gettypeofservices();
             SelectedItem = Items.First();
             services = dataContext.sp_getServices();
             ItemsAssignedto = dataContext.sp_getAssignTo();
@@ -65,7 +66,6 @@ namespace Heart_CSJDM.Components.Pages
         public void SelectItem(string item)
         {
             SelectedItem = item;
-            // Add your logic here for when an item is selected
         }
         public void SelectItemAssignedTo(string item,string servicesname)
         {
@@ -87,7 +87,7 @@ namespace Heart_CSJDM.Components.Pages
         public void InitAppointment(List<Services> services)
         {
             foreach (var serv in services)
-            {
+            {  
                 Appointment appoint = new Appointment
                 {
                     Services = serv.ServicesName,
@@ -104,7 +104,7 @@ namespace Heart_CSJDM.Components.Pages
                 Helper.GenerateTransaction gettranID = new GenerateTransaction();
                 List<Appointment> savingAppointments = new List<Appointment>();
                 savingAppointments = appointments.Where(item => item.IsCheck).ToList();
-                string transID = gettranID.getTrancsactionID(ClientInfo.ClientID);
+                string transID = gettranID.getTrancsactionID();
                 foreach (var serv in savingAppointments)
                 {
                     serv.ClientID = ClientInfo.ClientID;

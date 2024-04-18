@@ -134,10 +134,9 @@
                             <Button Color="Color.Success" >@SelectedItem</Button>
                             <DropdownToggle Color="Color.Primary" Split />
                             <DropdownMenu>
-                                @foreach (var item in Items)
+                                @foreach (var item in _typeofservices)
                                 {
-                                    <DropdownItem Clicked="@( () => SelectItem(item) )">@item</DropdownItem>
-                                   @*  <DropdownItem Clicked="getdropdownitem" Value="@item">@item</DropdownItem> *@
+                                    <DropdownItem Clicked="@( () => SelectItem(item.TypeOfServicesID.ToString()) )">@item.Name</DropdownItem>
                                 }
                                 <DropdownDivider />
                             </DropdownMenu>

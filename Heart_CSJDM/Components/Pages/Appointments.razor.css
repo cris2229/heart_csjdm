@@ -1,0 +1,12 @@
+﻿.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa; /* Lighter shade */
+}
+TableHeader {
+font-size:14px;
+}
+TableBody {
+    font-size: 12px;
+}
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #e9ecef; /* Darker shade */
+}

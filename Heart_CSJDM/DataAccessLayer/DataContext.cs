@@ -14,6 +14,7 @@ using Microsoft.CodeAnalysis.Rename;
 using Heart_CSJDM.Model;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Windows.Input;
+using Heart_CSJDM.Components.Pages;
 
 namespace Heart_CSJDM.DataAccessLayer
 {
@@ -126,9 +127,9 @@ namespace Heart_CSJDM.DataAccessLayer
 
             return clientsList;
         }
-        public List<string> sp_gettypeofservices()
+        public List<clients> sp_getfilteredClients(string value,int searchBy, int pCategoryID)
         {
-            List<string> itemss = new List<string>();
+            List<clients> clientsList = new List<clients>();
             try
             {
 
@@ -136,17 +137,272 @@ namespace Heart_CSJDM.DataAccessLayer
                 MySqlConnection conn = new MySqlConnection(connectionString);
                 conn.Open();
 
-                string sql = "CALL sp_gettypeofservices();";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
+                MySqlCommand command = new MySqlCommand("sp_getfilteredClients", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@pvalue", value);
+                command.Parameters.AddWithValue("@searchBy", searchBy);
+                command.Parameters.AddWithValue("@pCategoryID", pCategoryID);
+                MySqlDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                    {
+                    clients client = new clients
+                    {
+                        ClientID = rdr.GetInt32("ClientID"),
+                        ClientName = rdr.GetString("ClientName"),
+                    };
+                    clientsList.Add(client);
+                }
+
+                return clientsList;
+                rdr.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return clientsList;
+        }
+        public List<clients> sp_getfilteredClientsdetails(string value, int searchBy, int pCategoryID)
+        {
+            List<clients> clientsList = new List<clients>();
+            try
+            {
+
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getfilteredClientsdetails", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@pvalue", value);
+                command.Parameters.AddWithValue("@searchBy", searchBy);
+                command.Parameters.AddWithValue("@pCategoryID", pCategoryID);
+                MySqlDataReader rdr = command.ExecuteReader();
+
                 while (rdr.Read())
                 {
-                    itemss.Add(rdr.GetString(0));
+                    clients client = new clients
+                    {
+                        ClientID = rdr.GetInt32("ClientID"),
+                        LastName = rdr.GetString("LastName"),
+                        FirstName = rdr.GetString("FirstName"),
+                        MiddleName = rdr.GetString("MiddleName"),
+                        ExtensionName = rdr.GetString("ExtensionName"),
+                        ID_No = rdr.GetString("ID_No"),
+                        Contact_No = rdr.GetString("Contact_No"),
+                        Birthdate = rdr.GetDateTime("Birthdate"),
+                        Age = rdr.GetString("Age"),
+                        Gender = rdr.GetString("Gender"),
+                        Marital_Status = rdr.GetString("Marital_Status"),
+                        Address_block = rdr.GetString("Address_block"),
+                        Address_lot = rdr.GetString("Address_lot"),
+                        Address_Subdivision = rdr.GetString("Address_Subdivision"),
+                        Address_HouseNo = rdr.GetString("Address_HouseNo"),
+                        Address_Building = rdr.GetString("Address_Building"),
+                        Address_Barangay = rdr.GetString("Address_Barangay"),
+                        Address_District = rdr.GetString("Address_District"),
+                        Address_Municipality = rdr.GetString("Address_Municipality"),
+                        Status = rdr.GetString("STATUS"),
+                        QREncriptedData = rdr.GetString("QREncriptedData"),
+                    };
+                    clientsList.Add(client);
+                }
 
+                return clientsList;
+                rdr.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return clientsList;
+        }
+        public List<TypeOfServices> sp_gettypeofservices()
+        {
+            List<TypeOfServices> itemss = new List<TypeOfServices>();
+            try
+            {
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_gettypeofservices", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    TypeOfServices _typeofservices = new TypeOfServices
+                    {
+                        TypeOfServicesID = rdr.GetInt32("TypeOfServicesID"),
+                        Name = rdr.GetString("Name"),
+                    };
+                    itemss.Add(_typeofservices);
                 }
                 return itemss;
                 rdr.Close();
+            }
+            catch
+            {
 
+            }
+
+            return itemss;
+        }
+        public List<Lookup> sp_getLookUpCriteria(string group)
+        {
+            List<Lookup> itemss = new List<Lookup>();
+            try
+            {
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getLookUpCriteria", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@pGroupname", group);
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Lookup _lookup = new Lookup
+                    {
+                        LookupCriteriaID = rdr.GetInt32("LookupCriteriaID"),
+                        Code = rdr.GetString("Code"),
+                        Description = rdr.GetString("Description"),
+                    };
+                    itemss.Add(_lookup);
+                }
+                return itemss;
+                rdr.Close();
+            }
+            catch
+            {
+
+            }
+
+            return itemss;
+        }
+        public List<Lookup> sp_getfilteredCategory(int searchBy)
+        {
+            List<Lookup> itemss = new List<Lookup>();
+            try
+            {
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getfilteredCategory", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@searchBy", searchBy);
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Lookup _lookup = new Lookup
+                    {
+                        LookupCriteriaID = rdr.GetInt32("LookupCriteriaID"),
+                        Description = rdr.GetString("Description"),
+                    };
+                    itemss.Add(_lookup);
+                }
+                return itemss;
+                rdr.Close();
+            }
+            catch
+            {
+
+            }
+
+            return itemss;
+        }
+        public List<Sector> sp_getSector()
+        {
+            List<Sector> itemss = new List<Sector>();
+            try
+            {
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getSector", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Sector _sector = new Sector
+                    {
+                        SectorID = rdr.GetInt32("SectorID"),
+                        Description = rdr.GetString("Description"),
+                    };
+                    itemss.Add(_sector);
+                }
+                return itemss;
+                rdr.Close();
+            }
+            catch
+            {
+
+            }
+
+            return itemss;
+        }
+        public List<Organization> sp_getOrganization()
+        {
+            List<Organization> itemss = new List<Organization>();
+            try
+            {
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getOrganization", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Organization _Org = new Organization
+                    {
+                        OrganizationID = rdr.GetInt32("OrganizationID"),
+                        Description = rdr.GetString("Description"),
+                    };
+                    itemss.Add(_Org);
+                }
+                return itemss;
+                rdr.Close();
+            }
+            catch
+            {
+
+            }
+
+            return itemss;
+        }
+        public List<Barangay> sp_getBarangay()
+        {
+            List<Barangay> itemss = new List<Barangay>();
+            try
+            {
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_getBarangay", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                MySqlDataReader rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Barangay _barangay = new Barangay
+                    {
+                        BarangayID = rdr.GetInt32("BarangayID"),
+                        Name = rdr.GetString("Name"),
+                    };
+                    itemss.Add(_barangay);
+                }
+                return itemss;
+                rdr.Close();
             }
             catch
             {
@@ -248,6 +504,29 @@ namespace Heart_CSJDM.DataAccessLayer
 
             }
         }
+        public void sp_saveTransactions(iTransactions _transactions)
+        {
+            List<Services> services = new List<Services>();
+            try
+            {
+
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                conn.Open();
+
+                MySqlCommand command = new MySqlCommand("sp_saveTransactions", conn);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@pTransactionNo", _transactions.TransactionNo);
+                command.Parameters.AddWithValue("@pUserID", _transactions.UserID);
+                command.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+        }
         public List<Appointment> sp_getAppointment(int ClientID)
         {
             List<Appointment> Appoint = new List<Appointment>();
@@ -303,7 +582,7 @@ namespace Heart_CSJDM.DataAccessLayer
                 {
                     Appointment appoints = new Appointment
                     {
-                        //ClientID = rdr.GetInt32("ClientID"),
+                        AppointmentID = rdr.GetInt32("AppointmentID"),
                         DateofAppointment = rdr.GetDateTime("DateofAppointment"),
                         Services = rdr.GetString("Services"),
                         AssignedTo = rdr.GetString("AssignedTo"),
@@ -355,6 +634,8 @@ namespace Heart_CSJDM.DataAccessLayer
                 command.Parameters.AddWithValue("@pAddress_Municipality", clients.Address_Municipality);
                 command.Parameters.AddWithValue("@pQREncriptedData", clients.QREncriptedData);
                 command.Parameters.AddWithValue("@pStatus", clients.Statusint);
+                command.Parameters.AddWithValue("@pSectorID", clients.SectorID);
+                command.Parameters.AddWithValue("@pOrganization", clients.OrganizationID);
                 command.ExecuteNonQuery();
 
             }
@@ -402,6 +683,8 @@ namespace Heart_CSJDM.DataAccessLayer
                         Address_Municipality = rdr.GetString("Address_Municipality"),
                         Status = rdr.GetString("STATUS"),
                         QREncriptedData = rdr.GetString("QREncriptedData"),
+                        SectorID = rdr.GetInt32("SectorID"),
+                        OrganizationID = rdr.GetInt32("OrganizationID")
                     };
                     clientinfo = client;
                 }
